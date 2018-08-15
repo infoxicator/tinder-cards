@@ -8,7 +8,6 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const db = require('./db');
 
-const port = 9000;
 const jwtSecret = Buffer.from('Zn8Q5tyZ/G1MHltc4F/gTkVJMlrbKiZt', 'base64');
 
 const typeDefs = fs.readFileSync('./schema.graphql', {encoding:'utf-8'});
@@ -38,4 +37,5 @@ app.post('/login', (req, res) => {
   res.send({token});
 });
 
+const port = process.env || 9000;
 app.listen(port, () => console.info(`Server started on port ${port}`));
