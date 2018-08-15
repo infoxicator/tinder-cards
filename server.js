@@ -37,5 +37,15 @@ app.post('/login', (req, res) => {
   res.send({token});
 });
 
+if (process.env.NODE_ENV === 'production') {
+
+  app.use(express.static('client/build'));
+
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 const port = process.env || 9000;
 app.listen(port, () => console.info(`Server started on port ${port}`));
