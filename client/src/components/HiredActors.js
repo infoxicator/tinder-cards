@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchHiredActors } from '../actions';
 
-import { SwipeCards, Card } from './react-swipe-cards';
-
 class HiredActors extends Component {
   componentDidMount() {
     this.props.fetchHiredActors();

@@ -8,12 +8,12 @@ const RouterComponent = () => {
   return (
     <Router ref={router => (this.router = router)}>
       <div>
-            <NavBar />
-            <Switch>
-              <Route exact path="/" component={ActorsList} />
-              <Route path="/hired" component={HiredActors} />
-            </Switch>
-          </div>
+        <NavBar />
+        <Switch>
+          <Route exact path="/" component={ActorsList} />
+          <Route path="/hired" component={HiredActors} />
+        </Switch>
+      </div>
     </Router>
   );
 };

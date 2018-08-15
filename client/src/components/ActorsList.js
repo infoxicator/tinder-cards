@@ -14,8 +14,6 @@ class ActorsList extends Component {
     this.props.fetchActors();
   }
 
-  
-
   renderActors() {
     const { actors } = this.props;
     return actors.map((actor) => {

@@ -2,6 +2,11 @@
   "name": "stunt-double-client",
   "version": "0.1.0",
   "private": true,
+  "proxy": {
+    "/graphql": {
+      "target": "http://localhost:9000"
+    }
+  },
   "dependencies": {
     "apollo-boost": "^0.1.13",
     "graphql": "^0.13.2",
@@ -15,7 +20,6 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "react-swipe-card": "/Users/mobile/Downloads/react-swipe-card-master/",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0"
   },
