@@ -1,0 +1,10 @@
+type Query {
+   actors: [Actor]
+}
+
+type Actor {
+    id: ID!
+    name: String
+    picture: String
+    profileUrl: String
+}
