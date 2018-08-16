@@ -5,7 +5,7 @@ export default function (state = [], action) {
     case FETCH_HIRED_ACTORS:
       return state;
     case HIRE_ACTOR:
-      return state.concat({ ...action.actor, position: action.position });
+      return [...state, { ...action.actor, position: action.position }];
     default:
       return state;
   }
