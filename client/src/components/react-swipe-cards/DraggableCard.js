@@ -11,7 +11,6 @@ class DraggableCard extends Component {
       x: 0,
       y: 0,
       initialPosition: { x: 0, y: 0 },
-      startPosition: { x: 0, y: 0 },
       animation: null,
       pristine: true,
     };
@@ -19,7 +18,41 @@ class DraggableCard extends Component {
     this.handlePan = this.handlePan.bind(this);
   }
 
-  panend(ev) {
+  componentDidMount() {
+    this.hammer = new Hammer.Manager(ReactDOM.findDOMNode(this));
+    this.hammer.add(new Hammer.Pan({ threshold: 2 }));
+
+    this.hammer.on('panstart panend pancancel panmove', this.handlePan);
+    this.hammer.on('swipestart swipeend swipecancel swipemove', this.handleSwipe);
+
+    this.resetPosition();
+    window.addEventListener('resize', this.resetPosition);
+  }
+
+  componentWillUnmount() {
+    if (this.hammer) {
+      this.hammer.stop();
+      this.hammer.destroy();
+      this.hammer = null;
+    }
+    window.removeEventListener('resize', this.resetPosition);
+  }
+
+  handlePan(ev) {
+    ev.preventDefault();
+    this[ev.type](ev);
+    return false;
+  }
+
+  calculatePosition(deltaX, deltaY) {
+    const { initialPosition: { x, y } } = this.state;
+    return {
+      x: (x + deltaX),
+      y: (y + deltaY),
+    };
+  }
+
+  panend() {
     const screen = this.props.containerSize;
     const card = ReactDOM.findDOMNode(this);
 
@@ -47,53 +80,9 @@ class DraggableCard extends Component {
     this.setState(this.calculatePosition(ev.deltaX, ev.deltaY));
   }
 
-  pancancel(ev) {
-    console.log(ev.type);
-  }
-
-  handlePan(ev) {
-    ev.preventDefault();
-    this[ev.type](ev);
-    return false;
-  }
-
-  handleSwipe(ev) {
-    console.log(ev.type);
-  }
-
-  calculatePosition(deltaX, deltaY) {
-    const { initialPosition: { x, y } } = this.state;
-    return {
-      x: (x + deltaX),
-      y: (y + deltaY),
-    };
-  }
-
-  componentDidMount() {
-    this.hammer = new Hammer.Manager(ReactDOM.findDOMNode(this));
-    this.hammer.add(new Hammer.Pan({ threshold: 2 }));
-
-    this.hammer.on('panstart panend pancancel panmove', this.handlePan);
-    this.hammer.on('swipestart swipeend swipecancel swipemove', this.handleSwipe);
-
-    this.resetPosition();
-    window.addEventListener('resize', this.resetPosition);
-  }
-
-  componentWillUnmount() {
-    if (this.hammer) {
-      this.hammer.stop();
-      this.hammer.destroy();
-      this.hammer = null;
-    }
-    window.removeEventListener('resize', this.resetPosition);
-  }
-
   panstart() {
-    const { x, y } = this.state;
     this.setState({
       animation: false,
-      startPosition: { x, y },
       pristine: false,
     });
   }
@@ -111,7 +100,6 @@ class DraggableCard extends Component {
       x: initialPosition.x,
       y: initialPosition.y,
       initialPosition,
-      startPosition: { x: 0, y: 0 },
     });
   }
 

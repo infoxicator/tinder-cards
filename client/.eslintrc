@@ -1,6 +1,17 @@
 {
     "extends": "airbnb",
     "rules": {
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "no-return-assign":"off",
+        "react/forbid-prop-types": "disabled",
+        "react/destructuring-assignment": "disabled",
+        "react/prop-types": "disabled",
+        "react/no-find-dom-node": "disabled",
+        "no-nested-ternary":"off"
+      },
+      "env": {
+        "browser": true,
+        "node": true,
+        "jest": true
       }
 }

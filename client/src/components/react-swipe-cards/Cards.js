@@ -34,7 +34,7 @@ class SwipeCards extends Component {
     this.setState({ containerSize });
   }
 
-  removeCard(side, cardId) {
+  removeCard(side) {
     const { index } = this.state;
     const { children, onEnd } = this.props;
     setTimeout(() => this.setState({ [`alert${side}`]: false }), 300);
@@ -55,8 +55,6 @@ class SwipeCards extends Component {
     const {
       children,
       className,
-      onSwipeTop,
-      onSwipeBottom,
       headerImage,
       title,
     } = this.props;

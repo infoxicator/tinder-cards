@@ -23,18 +23,18 @@ class Card extends Component {
     const initialPosition = {
       x: Math.round((containerSize.x - card.offsetWidth) / 2),
       y: Math.round((containerSize.y - card.offsetHeight) / 2),
-    }
+    };
     this.setState({ initialPosition });
   }
 
-  render () {
+  render() {
     const { initialPosition: { x, y } } = this.state;
     const { className = 'inactive' } = this.props;
-    var style = {
+    const style = {
       ...translate3d(x, y),
       zIndex: this.props.index,
-      ...this.props.style
-    }
+      ...this.props.style,
+    };
 
     return (
       <div style={style} className={`card ${className}`} ref={node => this.node = node}>
